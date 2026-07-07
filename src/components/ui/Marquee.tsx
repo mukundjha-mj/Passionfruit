@@ -1,9 +1,10 @@
 import { motion, useAnimationControls } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 
 type MarqueeProps = {
   children: ReactNode
-  durationSeconds?: number
+  speedPxPerSecond?: number
   reverse?: boolean
   className?: string
   gapClassName?: string
@@ -11,18 +12,27 @@ type MarqueeProps = {
 
 export default function Marquee({
   children,
-  durationSeconds = 30,
+  speedPxPerSecond = 50,
   reverse = false,
   className = '',
   gapClassName = 'gap-12',
 }: MarqueeProps) {
   const controls = useAnimationControls()
+  const setRef = useRef<HTMLDivElement>(null)
+  const [setWidth, setSetWidth] = useState(0)
 
-  const play = () =>
+  useEffect(() => {
+    if (setRef.current) setSetWidth(setRef.current.getBoundingClientRect().width)
+  }, [children])
+
+  useEffect(() => {
+    if (!setWidth) return
+    const duration = setWidth / speedPxPerSecond
     controls.start({
-      x: reverse ? ['-50%', '0%'] : ['0%', '-50%'],
-      transition: { duration: durationSeconds, repeat: Infinity, ease: 'linear' },
+      x: reverse ? [-setWidth, 0] : [0, -setWidth],
+      transition: { duration, repeat: Infinity, ease: 'linear' },
     })
+  }, [setWidth, speedPxPerSecond, reverse, controls])
 
   return (
     <div
@@ -38,10 +48,18 @@ export default function Marquee({
         className={`flex w-max shrink-0 items-center ${gapClassName}`}
         animate={controls}
         onHoverStart={() => controls.stop()}
-        onHoverEnd={play}
-        onViewportEnter={play}
+        onHoverEnd={() => {
+          if (!setWidth) return
+          const duration = setWidth / speedPxPerSecond
+          controls.start({
+            x: reverse ? [-setWidth, 0] : [0, -setWidth],
+            transition: { duration, repeat: Infinity, ease: 'linear' },
+          })
+        }}
       >
-        <div className={`flex shrink-0 items-center ${gapClassName}`}>{children}</div>
+        <div ref={setRef} className={`flex shrink-0 items-center ${gapClassName}`}>
+          {children}
+        </div>
         <div className={`flex shrink-0 items-center ${gapClassName}`} aria-hidden>
           {children}
         </div>

@@ -1,5 +1,4 @@
 import americanNautical from '../assets/american nautical.avif'
-import betaboz from '../assets/betaboz.avif'
 import blindsgalore from '../assets/blindsgalore.avif'
 import blueair from '../assets/Blueair.avif'
 import bluetea from '../assets/Bluetea.avif'
@@ -9,7 +8,6 @@ import doTheUndone from '../assets/do the undone.avif'
 import facescanada from '../assets/facescanada.avif'
 import gfuel from '../assets/Gfuel.avif'
 import goli from '../assets/goli.avif'
-import hostfully from '../assets/hostfully.png'
 import hp from '../assets/hp.avif'
 import juicyChemistry from '../assets/juicy chemistry.avif'
 import knowellaAnalytics from '../assets/Knowella Analytics.avif'
@@ -21,7 +19,6 @@ import nykaa from '../assets/nykaa.avif'
 import plix from '../assets/plix.avif'
 import rms from '../assets/rms.avif'
 import samphire from '../assets/samphire.avif'
-import shaadi from '../assets/shaadi.png'
 import solawave from '../assets/solawave.avif'
 import thenolishop from '../assets/thenolishop.avif'
 import thesouledstore from '../assets/thesouledstore.avif'
@@ -29,7 +26,6 @@ import tuttlebeach from '../assets/tuttlebeach.avif'
 import twoBrothers from '../assets/two brothers.avif'
 import unilever from '../assets/unilever.avif'
 import wolt from '../assets/wolt.avif'
-import zone from '../assets/zone.avif'
 import Marquee from './ui/Marquee'
 
 // Reference splits the wall of brands into 3 stacked rows, each its own
@@ -69,50 +65,57 @@ const ROW_3 = [
   { src: thesouledstore, alt: 'The Souled Store' },
   { src: tuttlebeach, alt: 'Tuttle Beach' },
   { src: twoBrothers, alt: 'Two Brothers' },
-  { src: hostfully, alt: 'Hostfully' },
-  { src: shaadi, alt: 'Shaadi.com' },
-  { src: betaboz, alt: 'BetaBox' },
-  { src: zone, alt: 'Zone' },
 ]
+
+// Reference rows are a CSS grid stretched to a fixed ~1898px width regardless
+// of item count (minmax(50px, 1fr) columns) — matched here with flex-1 tiles
+// inside a fixed-width track, so every row scrolls the same distance/speed
+// without ever repeating a brand within a single pass.
+const ROW_WIDTH_PX = 1898
 
 function LogoRow({
   logos,
   reverse,
-  durationSeconds,
 }: {
   logos: { src: string; alt: string }[]
   reverse: boolean
-  durationSeconds: number
 }) {
   return (
-    <Marquee durationSeconds={durationSeconds} reverse={reverse} gapClassName="gap-0">
-      {logos.map((logo) => (
-        <div
-          key={logo.alt}
-          className="flex h-26 w-47.5 shrink-0 items-center justify-center border-x"
-          style={{ borderColor: 'rgb(196, 196, 196)' }}
-        >
-          <img
-            src={logo.src}
-            alt={logo.alt}
-            className="h-8 w-auto max-w-[70%] object-contain grayscale sm:h-9"
-          />
-        </div>
-      ))}
+    <Marquee speedPxPerSecond={50} reverse={reverse} gapClassName="gap-0">
+      <div className="flex h-26 shrink-0" style={{ width: ROW_WIDTH_PX }}>
+        {logos.map((logo) => (
+          <div
+            key={logo.alt}
+            className="flex h-26 min-w-12.5 flex-1 items-center justify-center border-x"
+            style={{ borderColor: 'rgb(196, 196, 196)' }}
+          >
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              className="h-24 w-auto max-w-[82%] object-contain grayscale"
+            />
+          </div>
+        ))}
+      </div>
     </Marquee>
   )
 }
 
 export default function BrandLogosMarquee() {
   return (
-    <section className="border-y border-border-soft bg-white py-12">
-      <p className="mb-8 text-center font-mono text-xs uppercase tracking-[0.2em] text-ink-400">
+    <section className="border-t border-border-soft bg-white pt-6 pb-10">
+      <p className="mb-6 text-center font-sans text-2xl tracking-[-0.03em] text-ink-950 uppercase">
         Join the best brands in the world powered by Passionfruit
       </p>
-      <div className="flex flex-col divide-y" style={{ borderColor: 'rgb(196, 196, 196)' }}>
-        <LogoRow logos={ROW_1} reverse={false} durationSeconds={32} />
-        <LogoRow logos={ROW_2} reverse durationSeconds={38} />
-        <LogoRow logos={ROW_3} reverse={false} durationSeconds={44} />
+      <div className="flex justify-center px-16">
+        <div
+          className="flex w-full max-w-360 flex-col divide-y border-y"
+          style={{ borderColor: 'rgb(196, 196, 196)' }}
+        >
+          <LogoRow logos={ROW_1} reverse={false} />
+          <LogoRow logos={ROW_2} reverse />
+          <LogoRow logos={ROW_3} reverse={false} />
+        </div>
       </div>
     </section>
   )

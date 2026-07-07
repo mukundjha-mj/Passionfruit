@@ -62,7 +62,7 @@ export default function TestimonialSection() {
         />
       </div>
 
-      <Marquee durationSeconds={45} className="mt-14" gapClassName="gap-6">
+      <Marquee speedPxPerSecond={35} className="mt-14" gapClassName="gap-6">
         {TESTIMONIALS.map((t) => (
           <figure
             key={t.name}
