@@ -20,9 +20,9 @@ function App() {
       <Hero />
       <BrandLogosMarquee />
       <SearchShiftedSection />
-      <PlatformSection />
-      <HowItWorks />
       <FeaturesGrid />
+      <HowItWorks />
+      <PlatformSection />
       <ProductSection />
       <TestimonialSection />
       <CaseStudies />
