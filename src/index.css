@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@import "@fontsource/dm-sans/400.css";
+@import "@fontsource/dm-sans/500.css";
+@import "@fontsource/dm-sans/600.css";
+@import "@fontsource/dm-sans/700.css";
+@import "@fontsource/inter-tight/500.css";
+@import "@fontsource/inter-tight/600.css";
+@import "@fontsource/inter-tight/700.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/mona-sans/400.css";
+@import "@fontsource/mona-sans/600.css";
+@import "@fontsource/mona-sans/800.css";
+@import "@fontsource/fragment-mono/400.css";
+
+@theme {
+  --breakpoint-tab: 810px;
+  --breakpoint-desk: 1200px;
+
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-heading: "Inter Tight", system-ui, sans-serif;
+  --font-display: "Mona Sans", system-ui, sans-serif;
+  --font-alt: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-switzer: "Switzer", system-ui, sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, monospace;
+
+  /* Neutrals (zinc scale pulled from --token values) */
+  --color-ink-950: #09090b;
+  --color-ink-900: #18181b;
+  --color-ink-800: #27272a;
+  --color-ink-700: #3f3f46;
+  --color-ink-600: #52525b;
+  --color-ink-500: #71717a;
+  --color-ink-400: #a1a1aa;
+  --color-ink-300: #d4d4d8;
+  --color-ink-200: #e4e4e7;
+  --color-ink-100: #f4f4f5;
+  --color-ink-50: #fafafa;
+
+  /* Brand + surfaces */
+  --color-brand-purple: #8554ff;
+  --color-cream: #fffefc;
+  --color-cream-pink: #fff5f5;
+  --color-border-soft: #dde5ed;
+  --color-surface-dark: #1a1a1b;
+  --color-surface-dark-2: #222223;
+  --color-surface-dark-3: #333334;
+  --color-grid-dot: #e6e3e3;
+
+  /* Accents */
+  --color-accent-blue: #40c5ff;
+  --color-accent-blue-deep: #127ef1;
+  --color-accent-yellow: #ffc746;
+  --color-accent-green: #48d87d;
+  --color-accent-lime: #beff4b;
+  --color-accent-red: #ff6969;
+  --color-accent-purple-2: #8554ff;
+  --color-accent-orange: #fb923c;
+  --color-accent-cyan: #67e8f9;
+  --color-accent-pink: #f472b6;
+}
+
+body {
+  margin: 0;
+  background: var(--color-cream);
+  color: var(--color-ink-700);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
