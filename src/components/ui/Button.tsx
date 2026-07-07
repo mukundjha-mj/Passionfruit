@@ -4,9 +4,33 @@ import type { ReactNode } from 'react'
 type ButtonProps = {
   children: ReactNode
   href?: string
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'hero'
   size?: 'md' | 'lg'
   className?: string
+}
+
+const arrowVariants = {
+  rest: { width: 0, opacity: 0 },
+  hover: { width: 26, opacity: 1 },
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      width="26"
+      height="17"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M5 12h14" />
+      <path d="M13 6l6 6-6 6" />
+    </svg>
+  )
 }
 
 export default function Button({
@@ -32,6 +56,39 @@ export default function Button({
     )
   }
 
+  if (variant === 'hero') {
+    return (
+      <motion.a
+        href={href}
+        className={`group relative inline-flex items-center justify-center overflow-hidden rounded-xl font-sans ${sizes} ${className}`}
+        style={{ backgroundColor: 'rgb(255, 199, 70)' }}
+        initial="rest"
+        whileHover="hover"
+      >
+        <motion.span
+          aria-hidden
+          className="absolute left-1/2 -bottom-2 h-2 w-2 -translate-x-1/2 rounded-full bg-white"
+          variants={{
+            rest: { scale: 1, opacity: 1 },
+            hover: { scale: 26, opacity: 1 },
+          }}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
+        />
+        <span className="relative z-10 flex items-center text-black">
+          {children}
+          <motion.span
+            aria-hidden
+            className="ml-1.5 inline-flex shrink-0 overflow-hidden"
+            variants={arrowVariants}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          >
+            <ArrowIcon />
+          </motion.span>
+        </span>
+      </motion.a>
+    )
+  }
+
   return (
     <motion.a
       href={href}
@@ -50,7 +107,7 @@ export default function Button({
         transition={{ duration: 0.45, ease: 'easeOut' }}
       />
       <motion.span
-        className="relative z-10"
+        className="relative z-10 flex items-center"
         variants={{
           rest: { color: 'rgb(0,0,0)' },
           hover: { color: 'rgb(255,255,255)' },
@@ -58,6 +115,14 @@ export default function Button({
         transition={{ duration: 0.3 }}
       >
         {children}
+        <motion.span
+          aria-hidden
+          className="ml-1.5 inline-flex shrink-0 overflow-hidden"
+          variants={arrowVariants}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+        >
+          <ArrowIcon />
+        </motion.span>
       </motion.span>
     </motion.a>
   )

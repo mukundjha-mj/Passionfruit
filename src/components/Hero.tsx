@@ -100,7 +100,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.7, ease: 'easeOut' }}
         >
-          <Button href="./contact-us" size="lg">
+          <Button href="./contact-us" variant="primary" size="lg">
             Talk to an Expert
           </Button>
         </motion.div>
