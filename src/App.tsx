@@ -9,7 +9,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import HowItWorks from './components/HowItWorks'
 import PlatformSection from './components/PlatformSection'
-import ProductSection from './components/ProductSection'
+import ResultsSection from './components/ResultsSection'
 import SearchShiftedSection from './components/SearchShiftedSection'
 import TestimonialSection from './components/TestimonialSection'
 
@@ -22,8 +22,8 @@ function App() {
       <SearchShiftedSection />
       <FeaturesGrid />
       <HowItWorks />
+      <ResultsSection />
       <PlatformSection />
-      <ProductSection />
       <TestimonialSection />
       <CaseStudies />
       <BlogsSection />
