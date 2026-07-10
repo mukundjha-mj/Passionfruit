@@ -70,7 +70,7 @@ export default function Button({
           className="absolute left-1/2 -bottom-2 h-2 w-2 -translate-x-1/2 rounded-full bg-white"
           variants={{
             rest: { scale: 1, opacity: 1 },
-            hover: { scale: 26, opacity: 1 },
+            hover: { scale: 32, opacity: 1 },
           }}
           transition={{ duration: 0.45, ease: 'easeOut' }}
         />

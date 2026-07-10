@@ -7,6 +7,9 @@ type SectionHeadingProps = {
   subtitle?: ReactNode
   align?: 'center' | 'left'
   className?: string
+  titleClassName?: string
+  subtitleClassName?: string
+  maxWidthClassName?: string
 }
 
 const fadeUp = {
@@ -20,12 +23,15 @@ export default function SectionHeading({
   subtitle,
   align = 'center',
   className = '',
+  titleClassName,
+  subtitleClassName,
+  maxWidthClassName = 'max-w-2xl',
 }: SectionHeadingProps) {
   const alignment = align === 'center' ? 'items-center text-center mx-auto' : 'items-start text-left'
 
   return (
     <motion.div
-      className={`flex max-w-2xl flex-col gap-4 ${alignment} ${className}`}
+      className={`flex ${maxWidthClassName} flex-col gap-4 ${alignment} ${className}`}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
@@ -37,10 +43,17 @@ export default function SectionHeading({
           {eyebrow}
         </span>
       )}
-      <h2 className="font-heading text-3xl font-medium tracking-tight text-ink-950 sm:text-4xl lg:text-[2.75rem]">
+      <h2
+        className={
+          titleClassName ??
+          'font-heading text-3xl font-medium tracking-tight text-ink-950 sm:text-4xl lg:text-[2.75rem]'
+        }
+      >
         {title}
       </h2>
-      {subtitle && <p className="text-base text-ink-500 sm:text-lg">{subtitle}</p>}
+      {subtitle && (
+        <p className={subtitleClassName ?? 'text-base text-ink-500 sm:text-lg'}>{subtitle}</p>
+      )}
     </motion.div>
   )
 }
