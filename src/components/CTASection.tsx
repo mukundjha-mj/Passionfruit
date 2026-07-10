@@ -10,7 +10,7 @@ const CIRCLES = [user1, user2, user3, user4]
 
 export default function CTASection() {
   return (
-    <section className="relative overflow-hidden bg-white px-5 py-16 tab:px-16 tab:py-20 desk:py-27.5">
+    <section className="relative overflow-hidden bg-ink-950 px-5 py-16 tab:px-16 tab:py-20 desk:py-27.5">
       <div className="relative z-10 mx-auto max-w-360">
         <div
           className="relative overflow-hidden rounded-xl border px-6 py-16 tab:px-12 tab:py-24 desk:px-16 desk:py-32.5"

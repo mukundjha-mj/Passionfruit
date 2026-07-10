@@ -37,8 +37,8 @@ function XIcon() {
 
 export default function Footer() {
   return (
-    <footer className="bg-ink-950 px-5 py-16 tab:px-16 tab:py-20">
-      <div className="mx-auto flex max-w-360 flex-col gap-12.5 tab:gap-25.75">
+    <footer className="bg-ink-950 px-5 pt-15 tab:px-16 tab:pt-20">
+      <div className="mx-auto flex max-w-360 flex-col gap-10.5 tab:gap-20.75">
         <div className="flex flex-col gap-[70px] tab:flex-row tab:gap-[103px]">
           <div className="flex flex-1 flex-col gap-6">
             <div className="w-full max-w-[300.5px]">
@@ -50,7 +50,7 @@ export default function Footer() {
                 scrolling="no"
                 style={{
                   width: '100%',
-                  height: '296px',
+                  height: '140px',
                   margin: 0,
                   borderRadius: 0,
                   backgroundColor: 'transparent',
