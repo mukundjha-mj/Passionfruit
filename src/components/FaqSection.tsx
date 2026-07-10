@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
-import SectionHeading from './ui/SectionHeading'
+import Button from './ui/Button'
+import GridBackground from './ui/GridBackground'
 
 const FAQS = [
   {
@@ -49,51 +50,77 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-24">
-      <SectionHeading
-        eyebrow="FAQ"
-        title="Frequently Asked Questions"
-        subtitle="Your questions on SEO, GEO, and AI search answered by the team that's helped clients achieve 750% AI visibility growth."
-      />
+    <section className="relative overflow-hidden bg-ink-950 px-5 py-16 tab:px-16 tab:py-20 desk:py-28">
+      <div className="absolute inset-0 opacity-30">
+        <GridBackground />
+      </div>
 
-      <div className="mt-12 flex flex-col divide-y divide-border-soft border-y border-border-soft">
-        {FAQS.map((faq, i) => {
-          const isOpen = openIndex === i
-          return (
-            <div key={faq.q}>
-              <button
-                onClick={() => setOpenIndex(isOpen ? null : i)}
-                className="flex w-full items-center justify-between gap-4 py-5 text-left"
+      <div className="relative z-10 mx-auto flex max-w-360 flex-col gap-8 desk:flex-row desk:items-start desk:gap-13">
+        <motion.div
+          className="flex flex-col items-start gap-4 desk:sticky desk:top-30 desk:shrink-0 desk:grow-[0.8] desk:basis-0"
+          initial={{ opacity: 0, x: 150 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
+          <h2 className="font-switzer text-[40px] font-medium leading-[1.1em] tracking-[-0.03em] text-white tab:text-[64px]">
+            Frequently Asked Questions
+          </h2>
+          <p className="font-switzer text-[18px] leading-[1.6em] text-[rgb(196,196,196)] desk:text-[20px]">
+            Your questions on SEO, GEO, and AI search answered by the team that's helped clients
+            achieve 750% AI visibility growth
+          </p>
+          <Button href="./contact-us" variant="hero" className="mt-2">
+            Talk to an Expert
+          </Button>
+        </motion.div>
+
+        <div className="flex flex-col gap-3.5 desk:grow desk:shrink-0 desk:basis-0">
+          {FAQS.map((faq, i) => {
+            const isOpen = openIndex === i
+            return (
+              <motion.div
+                key={faq.q}
+                className="rounded-lg border border-[rgb(64,64,64)] bg-[#141414] p-4"
+                initial={{ opacity: 0, x: 150 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, delay: Math.min(i, 6) * 0.05, ease: 'easeOut' }}
               >
-                <span className="font-heading text-base font-medium text-ink-950">
-                  {faq.q}
-                </span>
-                <motion.span
-                  animate={{ rotate: isOpen ? 45 : 0 }}
-                  transition={{ duration: 0.25 }}
-                  className="shrink-0 text-xl text-brand-purple"
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="flex w-full items-start justify-between gap-2.5 text-left"
                 >
-                  +
-                </motion.span>
-              </button>
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="overflow-hidden"
+                  <span className="font-switzer text-[20px] font-medium leading-[1.4em] tracking-[-0.03em] text-white">
+                    {faq.q}
+                  </span>
+                  <motion.span
+                    animate={{ rotate: isOpen ? 45 : 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="mt-0.5 shrink-0 text-2xl leading-none text-[rgb(196,196,196)]"
                   >
-                    <p className="pb-5 text-sm leading-relaxed text-ink-500">
-                      {faq.a}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )
-        })}
+                    +
+                  </motion.span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <p className="pt-2.5 font-switzer text-[18px] leading-[1.5em] tracking-[-0.03em] text-[rgb(196,196,196)] desk:text-[20px]">
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )
