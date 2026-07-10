@@ -11,6 +11,28 @@ const NAV_LINKS = [
   { label: 'Pricing', href: './pricing#pricing' },
 ]
 
+const INTEL_COLUMNS = [
+  [
+    { label: 'AI Visibility', href: './intelligence/ai-visibility-tracking#hero-ai', highlight: true },
+    { label: 'Revenue Drop', href: './intelligence/revenue-drop-analytics#hero-ai' },
+    { label: 'Revenue by Keyword', href: './intelligence/revenue-by-keyword-attribution#hero-ai' },
+  ],
+  [
+    { label: 'Traffic Drop', href: './intelligence/traffic-drop-analytics#hero-ai' },
+    { label: 'Content Refresh', href: './intelligence/content-refresh-analytics#hero-ai' },
+    { label: 'Page Level', href: './intelligence/page-level-analytics#hero-ai' },
+  ],
+]
+
+function ArrowRightIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M5 12h14" />
+      <path d="M13 6l6 6-6 6" />
+    </svg>
+  )
+}
+
 function MenuIcon({ open }: { open: boolean }) {
   const bar = 'absolute left-0 h-[1.5px] w-6 rounded-full bg-black'
   return (
@@ -37,6 +59,8 @@ function MenuIcon({ open }: { open: boolean }) {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [intelOpen, setIntelOpen] = useState(false)
+  const [mobileIntelOpen, setMobileIntelOpen] = useState(false)
 
   return (
     <>
@@ -75,16 +99,63 @@ export default function Header() {
             </a>
 
             <nav className="hidden items-center gap-5 min-[1200px]:flex">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="font-sans text-base font-medium transition-colors hover:text-ink-950"
-                  style={{ color: 'rgb(99, 99, 99)' }}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {NAV_LINKS.map((link) =>
+                link.label === 'Intelligence' ? (
+                  <div
+                    key={link.label}
+                    className="relative"
+                    onMouseEnter={() => setIntelOpen(true)}
+                    onMouseLeave={() => setIntelOpen(false)}
+                  >
+                    <a
+                      href={link.href}
+                      className="font-sans text-base font-medium transition-colors hover:text-ink-950"
+                      style={{ color: 'rgb(99, 99, 99)' }}
+                    >
+                      {link.label}
+                    </a>
+                    <AnimatePresence>
+                      {intelOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.15, ease: 'easeOut' }}
+                          className="absolute top-full left-0 z-40 mt-4 rounded-[10px] border bg-white p-2 shadow-[0_10px_20px_rgba(0,0,0,0.05)]"
+                          style={{ borderColor: 'rgb(196, 196, 196)' }}
+                        >
+                          <div className="flex gap-2">
+                            {INTEL_COLUMNS.map((column, i) => (
+                              <div key={i} className="flex w-48 flex-col gap-1">
+                                {column.map((item) => (
+                                  <a
+                                    key={item.label}
+                                    href={item.href}
+                                    className="flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 font-sans text-sm text-ink-950 transition-colors hover:bg-ink-50"
+                                    style={item.highlight ? { backgroundColor: 'rgb(247, 247, 242)' } : undefined}
+                                  >
+                                    {item.label}
+                                    {item.highlight && <ArrowRightIcon />}
+                                  </a>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="font-sans text-base font-medium transition-colors hover:text-ink-950"
+                    style={{ color: 'rgb(99, 99, 99)' }}
+                  >
+                    {link.label}
+                  </a>
+                ),
+              )}
             </nav>
           </div>
 
@@ -117,17 +188,61 @@ export default function Header() {
               style={{ borderColor: 'rgb(196, 196, 196)' }}
             >
               <nav className="flex flex-col gap-6 px-5 py-6">
-                {NAV_LINKS.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="font-sans text-base font-medium transition-colors hover:text-ink-950"
-                    style={{ color: 'rgb(99, 99, 99)' }}
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {NAV_LINKS.map((link) =>
+                  link.label === 'Intelligence' ? (
+                    <div key={link.label}>
+                      <button
+                        type="button"
+                        onClick={() => setMobileIntelOpen((v) => !v)}
+                        aria-expanded={mobileIntelOpen}
+                        className="flex w-full items-center justify-between font-sans text-base font-medium transition-colors hover:text-ink-950"
+                        style={{ color: 'rgb(99, 99, 99)' }}
+                      >
+                        {link.label}
+                        <motion.span
+                          animate={{ rotate: mobileIntelOpen ? 90 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ArrowRightIcon />
+                        </motion.span>
+                      </button>
+                      <AnimatePresence>
+                        {mobileIntelOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: 'easeOut' }}
+                            className="overflow-hidden"
+                          >
+                            <div className="flex flex-col gap-4 pt-4 pl-4">
+                              {INTEL_COLUMNS.flat().map((item) => (
+                                <a
+                                  key={item.label}
+                                  href={item.href}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="font-sans text-sm font-medium text-ink-950 transition-colors hover:text-ink-950"
+                                >
+                                  {item.label}
+                                </a>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="font-sans text-base font-medium transition-colors hover:text-ink-950"
+                      style={{ color: 'rgb(99, 99, 99)' }}
+                    >
+                      {link.label}
+                    </a>
+                  ),
+                )}
                 <Button href="./contact-us" size="md" className="w-fit">
                   Book a call
                 </Button>
